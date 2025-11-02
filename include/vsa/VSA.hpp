@@ -19,9 +19,18 @@ typedef std::map<SVF::NodeID, ValueSet> SVFVarState;
 /// @brief Data structure for the abstract state and any temporary
 /// variables stored within each basic block.
 struct Snapshot {
-    SVFVarState varState;
+    // Abstract store (state of registers and a-locs)
     AbstractStore abstractStore;
+    // State of block-local variables
+    SVFVarState varState;
+
+    // `NEXT_PC` at this point
     SVF::s64_t nextPc;
+    // PC at beginning of procedure
+    SVF::s64_t procStartPc;
+
+    // Size of stack
+    size_t stackSize;
 
     ValueSet getSVFVarSet(SVF::NodeID nodeID) {
         return this->varState[nodeID];
@@ -76,7 +85,12 @@ class VSA {
     bool isBranchFeasible(const SVF::IntraCFGEdge *, Snapshot &);
     bool isCmpBranchFeasible(const SVF::CmpStmt *, SVF::s64_t, SVFVarState &);
     bool isStartOfBasicBlock(const SVF::ICFGNode *);
+    bool isStartOfRetBlock(const SVF::ICFGNode *);
 
+    const SVF::ICFGNode *skipBlocks(const SVF::ICFGNode *, size_t);
+
+    void handleFunctionStart(const SVF::ICFGNode *);
+    void handleFunctionEnd();
     void handleFunction(const SVF::ICFGNode *);
     bool handleICFGNode(const SVF::ICFGNode *);
     void handleICFGCycle(const SVF::ICFGCycleWTO *);
@@ -116,6 +130,9 @@ class VSA {
 
     /// Global variables extracted from global node
     SVFVarState globalState;
+
+    /// Flag for when we're figuring out the stack offset - VSA for RBP and RSP
+    /// are turned on in this case
 
     /// Mapping of variables (alocs, registers, SVF vars) to value sets,
     /// for the current basic block
