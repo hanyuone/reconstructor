@@ -1,0 +1,1119 @@
+192,271c192,280
+<   %78 = load i64, ptr %RAX, align 8
+<   %79 = load i32, ptr %EAX, align 4
+<   %80 = zext i32 %79 to i64
+<   %81 = load ptr, ptr %MEMORY, align 8
+<   %82 = trunc i64 %78 to i32
+<   %83 = xor i32 %79, %82
+<   %84 = zext i32 %83 to i64
+<   store i64 %84, ptr %RAX, align 8
+<   %85 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 1
+<   store i8 0, ptr %85, align 1
+<   %86 = trunc i32 %83 to i8
+<   %87 = call i8 @llvm.ctpop.i8(i8 %86)
+<   %88 = and i8 %87, 1
+<   %89 = xor i8 %88, 1
+<   %90 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 3
+<   store i8 %89, ptr %90, align 1
+<   %91 = icmp eq i32 %83, 0
+<   %92 = call zeroext i1 (i1, ...) @__remill_flag_computation_zero(i1 noundef zeroext %91, i32 noundef %82, i32 noundef %79, i32 noundef %83) #3
+<   %93 = zext i1 %92 to i8
+<   %94 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 7
+<   store i8 %93, ptr %94, align 1
+<   %95 = icmp slt i32 %83, 0
+<   %96 = call zeroext i1 (i1, ...) @__remill_flag_computation_sign(i1 noundef zeroext %95, i32 noundef %82, i32 noundef %79, i32 noundef %83) #3
+<   %97 = zext i1 %96 to i8
+<   %98 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 9
+<   store i8 %97, ptr %98, align 1
+<   %99 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 13
+<   store i8 0, ptr %99, align 1
+<   %100 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 5
+<   store i8 0, ptr %100, align 1
+<   %101 = call zeroext i8 @__remill_undefined_8() #4
+<   store i8 %101, ptr %100, align 1
+<   store ptr %81, ptr %MEMORY, align 8
+<   br label %102
+< 
+< 102:                                              ; preds = %75
+<   %103 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %103, ptr %PC, align 8
+<   %104 = add i64 %103, 7
+<   store i64 %104, ptr %NEXT_PC, align 8
+<   %105 = load i64, ptr %RBP, align 8
+<   %106 = sub i64 %105, 80
+<   %107 = load ptr, ptr %MEMORY, align 8
+<   %108 = call ptr @__remill_write_memory_32(ptr noundef %107, i64 noundef %106, i32 noundef 5) #3
+<   store ptr %108, ptr %MEMORY, align 8
+<   br label %109
+< 
+< 109:                                              ; preds = %102
+<   %110 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %110, ptr %PC, align 8
+<   %111 = add i64 %110, 7
+<   store i64 %111, ptr %NEXT_PC, align 8
+<   %112 = load i64, ptr %RBP, align 8
+<   %113 = sub i64 %112, 76
+<   %114 = load ptr, ptr %MEMORY, align 8
+<   %115 = call ptr @__remill_write_memory_32(ptr noundef %114, i64 noundef %113, i32 noundef 10) #3
+<   store ptr %115, ptr %MEMORY, align 8
+<   br label %116
+< 
+< 116:                                              ; preds = %109
+<   %117 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %117, ptr %PC, align 8
+<   %118 = add i64 %117, 7
+<   store i64 %118, ptr %NEXT_PC, align 8
+<   %119 = load i64, ptr %RBP, align 8
+<   %120 = sub i64 %119, 84
+<   %121 = load ptr, ptr %MEMORY, align 8
+<   %122 = call ptr @__remill_write_memory_32(ptr noundef %121, i64 noundef %120, i32 noundef 0) #3
+<   store ptr %122, ptr %MEMORY, align 8
+<   br label %123
+< 
+< 123:                                              ; preds = %116
+<   %124 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %124, ptr %PC, align 8
+<   %125 = add i64 %124, 4
+<   store i64 %125, ptr %NEXT_PC, align 8
+<   %126 = load i64, ptr %RBP, align 8
+<   %127 = sub i64 %126, 48
+<   %128 = load ptr, ptr %MEMORY, align 8
+<   store i64 %127, ptr %RAX, align 8
+---
+>   %78 = load ptr, ptr %MEMORY, align 8
+>   store i64 0, ptr %RAX, align 8
+>   store ptr %78, ptr %MEMORY, align 8
+>   br label %79
+> 
+> 79:                                              ; preds = %75
+>   %80 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %80, ptr %PC, align 8
+>   %81 = add i64 %80, 7
+>   store i64 %81, ptr %NEXT_PC, align 8
+>   %82 = load i64, ptr %RBP, align 8
+>   %83 = sub i64 %82, 80
+>   %84 = load ptr, ptr %MEMORY, align 8
+>   %85 = call ptr @__remill_write_memory_32(ptr noundef %84, i64 noundef %83, i32 noundef 5) #3
+>   store ptr %85, ptr %MEMORY, align 8
+>   br label %86
+> 
+> 86:                                              ; preds = %79
+>   %87 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %87, ptr %PC, align 8
+>   %88 = add i64 %87, 7
+>   store i64 %88, ptr %NEXT_PC, align 8
+>   %89 = load i64, ptr %RBP, align 8
+>   %90 = sub i64 %89, 76
+>   %91 = load ptr, ptr %MEMORY, align 8
+>   %92 = call ptr @__remill_write_memory_32(ptr noundef %91, i64 noundef %90, i32 noundef 10) #3
+>   store ptr %92, ptr %MEMORY, align 8
+>   br label %93
+> 
+> 93:                                              ; preds = %86
+>   %94 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %94, ptr %PC, align 8
+>   %95 = add i64 %94, 7
+>   store i64 %95, ptr %NEXT_PC, align 8
+>   %96 = load i64, ptr %RBP, align 8
+>   %97 = sub i64 %96, 84
+>   %98 = load ptr, ptr %MEMORY, align 8
+>   %99 = call ptr @__remill_write_memory_32(ptr noundef %98, i64 noundef %97, i32 noundef 0) #3
+>   store ptr %99, ptr %MEMORY, align 8
+>   br label %100
+> 
+> 100:                                              ; preds = %93
+>   %101 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %101, ptr %PC, align 8
+>   %102 = add i64 %101, 4
+>   store i64 %102, ptr %NEXT_PC, align 8
+>   %103 = load i64, ptr %RBP, align 8
+>   %104 = sub i64 %103, 48
+>   %105 = load ptr, ptr %MEMORY, align 8
+>   store i64 %104, ptr %RAX, align 8
+>   store ptr %105, ptr %MEMORY, align 8
+>   br label %106
+> 
+> 106:                                              ; preds = %100
+>   %107 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %107, ptr %PC, align 8
+>   %108 = add i64 %107, 4
+>   store i64 %108, ptr %NEXT_PC, align 8
+>   %109 = load i64, ptr %RBP, align 8
+>   %110 = sub i64 %109, 72
+>   %111 = load i64, ptr %RAX, align 8
+>   %112 = load ptr, ptr %MEMORY, align 8
+>   %113 = call ptr @__remill_write_memory_64(ptr noundef %112, i64 noundef %110, i64 noundef %111) #3
+>   store ptr %113, ptr %MEMORY, align 8
+>   br label %114
+> 
+> 114:                                              ; preds = %106
+>   %115 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %115, ptr %PC, align 8
+>   %116 = add i64 %115, 4
+>   store i64 %116, ptr %NEXT_PC, align 8
+>   %117 = load i64, ptr %RBP, align 8
+>   %118 = sub i64 %117, 72
+>   %119 = load ptr, ptr %MEMORY, align 8
+>   %120 = call i64 @__remill_read_memory_64(ptr noundef %119, i64 noundef %118) #3
+>   store i64 %120, ptr %RAX, align 8
+>   store ptr %119, ptr %MEMORY, align 8
+>   br label %121
+> 
+> 121:                                              ; preds = %114
+>   %122 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %122, ptr %PC, align 8
+>   %123 = add i64 %122, 4
+>   store i64 %123, ptr %NEXT_PC, align 8
+>   %124 = load i64, ptr %RBP, align 8
+>   %125 = sub i64 %124, 56
+>   %126 = load i64, ptr %RAX, align 8
+>   %127 = load ptr, ptr %MEMORY, align 8
+>   %128 = call ptr @__remill_write_memory_64(ptr noundef %127, i64 noundef %125, i64 noundef %126) #3
+275c284
+< 129:                                              ; preds = %123
+---
+> 129:                                              ; preds = %121
+281,377c290,389
+<   %133 = sub i64 %132, 72
+<   %134 = load i64, ptr %RAX, align 8
+<   %135 = load ptr, ptr %MEMORY, align 8
+<   %136 = call ptr @__remill_write_memory_64(ptr noundef %135, i64 noundef %133, i64 noundef %134) #3
+<   store ptr %136, ptr %MEMORY, align 8
+<   br label %137
+< 
+< 137:                                              ; preds = %129
+<   %138 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %138, ptr %PC, align 8
+<   %139 = add i64 %138, 4
+<   store i64 %139, ptr %NEXT_PC, align 8
+<   %140 = load i64, ptr %RBP, align 8
+<   %141 = sub i64 %140, 72
+<   %142 = load ptr, ptr %MEMORY, align 8
+<   %143 = call i64 @__remill_read_memory_64(ptr noundef %142, i64 noundef %141) #3
+<   store i64 %143, ptr %RAX, align 8
+<   store ptr %142, ptr %MEMORY, align 8
+<   br label %144
+< 
+< 144:                                              ; preds = %137
+<   %145 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %145, ptr %PC, align 8
+<   %146 = add i64 %145, 4
+<   store i64 %146, ptr %NEXT_PC, align 8
+<   %147 = load i64, ptr %RBP, align 8
+<   %148 = sub i64 %147, 56
+<   %149 = load i64, ptr %RAX, align 8
+<   %150 = load ptr, ptr %MEMORY, align 8
+<   %151 = call ptr @__remill_write_memory_64(ptr noundef %150, i64 noundef %148, i64 noundef %149) #3
+<   store ptr %151, ptr %MEMORY, align 8
+<   br label %152
+< 
+< 152:                                              ; preds = %144
+<   %153 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %153, ptr %PC, align 8
+<   %154 = add i64 %153, 4
+<   store i64 %154, ptr %NEXT_PC, align 8
+<   %155 = load i64, ptr %RBP, align 8
+<   %156 = sub i64 %155, 48
+<   %157 = load ptr, ptr %MEMORY, align 8
+<   store i64 %156, ptr %RAX, align 8
+<   store ptr %157, ptr %MEMORY, align 8
+<   br label %158
+< 
+< 158:                                              ; preds = %152
+<   %159 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %159, ptr %PC, align 8
+<   %160 = add i64 %159, 4
+<   store i64 %160, ptr %NEXT_PC, align 8
+<   %161 = load i64, ptr %RAX, align 8
+<   %162 = load ptr, ptr %MEMORY, align 8
+<   %163 = add i64 20, %161
+<   store i64 %163, ptr %RAX, align 8
+<   %164 = icmp ult i64 %163, %161
+<   %165 = icmp ult i64 %163, 20
+<   %166 = or i1 %164, %165
+<   %167 = call zeroext i1 (i1, ...) @__remill_flag_computation_carry(i1 noundef zeroext %166, i64 noundef %161, i64 noundef 20, i64 noundef %163) #3
+<   %168 = zext i1 %167 to i8
+<   %169 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 1
+<   store i8 %168, ptr %169, align 1
+<   %170 = trunc i64 %163 to i8
+<   %171 = call i8 @llvm.ctpop.i8(i8 %170)
+<   %172 = and i8 %171, 1
+<   %173 = xor i8 %172, 1
+<   %174 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 3
+<   store i8 %173, ptr %174, align 1
+<   %175 = xor i64 %163, %161
+<   %176 = xor i64 %175, 20
+<   %177 = trunc i64 %176 to i8
+<   %178 = lshr i8 %177, 4
+<   %179 = and i8 %178, 1
+<   %180 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 5
+<   store i8 %179, ptr %180, align 1
+<   %181 = icmp eq i64 %163, 0
+<   %182 = call zeroext i1 (i1, ...) @__remill_flag_computation_zero(i1 noundef zeroext %181, i64 noundef %161, i64 noundef 20, i64 noundef %163) #3
+<   %183 = zext i1 %182 to i8
+<   %184 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 7
+<   store i8 %183, ptr %184, align 1
+<   %185 = icmp slt i64 %163, 0
+<   %186 = call zeroext i1 (i1, ...) @__remill_flag_computation_sign(i1 noundef zeroext %185, i64 noundef %161, i64 noundef 20, i64 noundef %163) #3
+<   %187 = zext i1 %186 to i8
+<   %188 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 9
+<   store i8 %187, ptr %188, align 1
+<   %189 = lshr i64 %175, 63
+<   %190 = xor i64 %163, 20
+<   %191 = lshr i64 %190, 63
+<   %192 = add nuw nsw i64 %189, %191
+<   %193 = icmp eq i64 %192, 2
+<   %194 = call zeroext i1 (i1, ...) @__remill_flag_computation_overflow(i1 noundef zeroext %193, i64 noundef %161, i64 noundef 20, i64 noundef %163) #3
+<   %195 = zext i1 %194 to i8
+<   %196 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 13
+<   store i8 %195, ptr %196, align 1
+<   store ptr %162, ptr %MEMORY, align 8
+<   br label %197
+< 
+< 197:                                              ; preds = %158
+---
+>   %133 = sub i64 %132, 48
+>   %134 = load ptr, ptr %MEMORY, align 8
+>   store i64 %133, ptr %RAX, align 8
+>   store ptr %134, ptr %MEMORY, align 8
+>   br label %135
+> 
+> 135:                                              ; preds = %129
+>   %136 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %136, ptr %PC, align 8
+>   %137 = add i64 %136, 4
+>   store i64 %137, ptr %NEXT_PC, align 8
+>   %138 = load i64, ptr %RAX, align 8
+>   %139 = load ptr, ptr %MEMORY, align 8
+>   %140 = add i64 20, %138
+>   store i64 %140, ptr %RAX, align 8
+>   %141 = icmp ult i64 %140, %138
+>   %142 = icmp ult i64 %140, 20
+>   %143 = or i1 %141, %142
+>   %144 = call zeroext i1 (i1, ...) @__remill_flag_computation_carry(i1 noundef zeroext %143, i64 noundef %138, i64 noundef 20, i64 noundef %140) #3
+>   %145 = zext i1 %144 to i8
+>   %146 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 1
+>   store i8 %145, ptr %146, align 1
+>   %147 = trunc i64 %140 to i8
+>   %148 = call i8 @llvm.ctpop.i8(i8 %147)
+>   %149 = and i8 %148, 1
+>   %150 = xor i8 %149, 1
+>   %151 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 3
+>   store i8 %150, ptr %151, align 1
+>   %152 = xor i64 %140, %138
+>   %153 = xor i64 %152, 20
+>   %154 = trunc i64 %153 to i8
+>   %155 = lshr i8 %154, 4
+>   %156 = and i8 %155, 1
+>   %157 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 5
+>   store i8 %156, ptr %157, align 1
+>   %158 = icmp eq i64 %140, 0
+>   %159 = call zeroext i1 (i1, ...) @__remill_flag_computation_zero(i1 noundef zeroext %158, i64 noundef %138, i64 noundef 20, i64 noundef %140) #3
+>   %160 = zext i1 %159 to i8
+>   %161 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 7
+>   store i8 %160, ptr %161, align 1
+>   %162 = icmp slt i64 %140, 0
+>   %163 = call zeroext i1 (i1, ...) @__remill_flag_computation_sign(i1 noundef zeroext %162, i64 noundef %138, i64 noundef 20, i64 noundef %140) #3
+>   %164 = zext i1 %163 to i8
+>   %165 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 9
+>   store i8 %164, ptr %165, align 1
+>   %166 = lshr i64 %152, 63
+>   %167 = xor i64 %140, 20
+>   %168 = lshr i64 %167, 63
+>   %169 = add nuw nsw i64 %166, %168
+>   %170 = icmp eq i64 %169, 2
+>   %171 = call zeroext i1 (i1, ...) @__remill_flag_computation_overflow(i1 noundef zeroext %170, i64 noundef %138, i64 noundef 20, i64 noundef %140) #3
+>   %172 = zext i1 %171 to i8
+>   %173 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 13
+>   store i8 %172, ptr %173, align 1
+>   store ptr %139, ptr %MEMORY, align 8
+>   br label %174
+> 
+> 174:                                              ; preds = %135
+>   %175 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %175, ptr %PC, align 8
+>   %176 = add i64 %175, 4
+>   store i64 %176, ptr %NEXT_PC, align 8
+>   %177 = load i64, ptr %RBP, align 8
+>   %178 = sub i64 %177, 64
+>   %179 = load i64, ptr %RAX, align 8
+>   %180 = load ptr, ptr %MEMORY, align 8
+>   %181 = call ptr @__remill_write_memory_64(ptr noundef %180, i64 noundef %178, i64 noundef %179) #3
+>   store ptr %181, ptr %MEMORY, align 8
+>   br label %182
+> 
+> 182:                                              ; preds = %174
+>   %183 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %183, ptr %PC, align 8
+>   %184 = add i64 %183, 2
+>   store i64 %184, ptr %NEXT_PC, align 8
+>   %185 = load i64, ptr %NEXT_PC, align 8
+>   %186 = add i64 %185, 32
+>   %187 = load ptr, ptr %MEMORY, align 8
+>   %188 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 33
+>   store i64 %186, ptr %188, align 8
+>   store i64 %186, ptr %NEXT_PC, align 8
+>   store ptr %187, ptr %MEMORY, align 8
+>   br label %189
+> 
+> 189:                                              ; preds = %345, %182
+>   %190 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %190, ptr %PC, align 8
+>   %191 = add i64 %190, 4
+>   store i64 %191, ptr %NEXT_PC, align 8
+>   %192 = load i64, ptr %RBP, align 8
+>   %193 = sub i64 %192, 84
+>   %194 = load ptr, ptr %MEMORY, align 8
+>   %195 = call i32 @__remill_read_memory_32(ptr noundef %194, i64 noundef %193) #3
+>   %cmp.0 = icmp sle i32 %195, 4
+>   store ptr %194, ptr %MEMORY, align 8
+> 
+>   %196 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %196, ptr %PC, align 8
+>   %197 = add i64 %196, 2
+>   store i64 %197, ptr %NEXT_PC, align 8
+379,414c391,424
+<   store i64 %198, ptr %PC, align 8
+<   %199 = add i64 %198, 4
+<   store i64 %199, ptr %NEXT_PC, align 8
+<   %200 = load i64, ptr %RBP, align 8
+<   %201 = sub i64 %200, 64
+<   %202 = load i64, ptr %RAX, align 8
+<   %203 = load ptr, ptr %MEMORY, align 8
+<   %204 = call ptr @__remill_write_memory_64(ptr noundef %203, i64 noundef %201, i64 noundef %202) #3
+<   store ptr %204, ptr %MEMORY, align 8
+<   br label %205
+< 
+< 205:                                              ; preds = %197
+<   %206 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %206, ptr %PC, align 8
+<   %207 = add i64 %206, 2
+<   store i64 %207, ptr %NEXT_PC, align 8
+<   %208 = load i64, ptr %NEXT_PC, align 8
+<   %209 = add i64 %208, 32
+<   %210 = load ptr, ptr %MEMORY, align 8
+<   %211 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 33
+<   store i64 %209, ptr %211, align 8
+<   store i64 %209, ptr %NEXT_PC, align 8
+<   store ptr %210, ptr %MEMORY, align 8
+<   br label %212
+< 
+< 212:                                              ; preds = %368, %205
+<   %213 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %213, ptr %PC, align 8
+<   %214 = add i64 %213, 4
+<   store i64 %214, ptr %NEXT_PC, align 8
+<   %215 = load i64, ptr %RBP, align 8
+<   %216 = sub i64 %215, 84
+<   %217 = load ptr, ptr %MEMORY, align 8
+<   %218 = call i32 @__remill_read_memory_32(ptr noundef %217, i64 noundef %216) #3
+<   %cmp.0 = icmp sle i32 %218, 4
+<   store ptr %217, ptr %MEMORY, align 8
+---
+>   %199 = sub i64 %198, 38
+>   %200 = load i64, ptr %NEXT_PC, align 8
+>   %201 = load ptr, ptr %MEMORY, align 8
+>   %202 = call zeroext i1 @__remill_compare_sle(i1 noundef zeroext %cmp.0) #4
+>   %203 = select i1 %cmp.0, i64 %199, i64 %200
+>   store i64 %203, ptr %NEXT_PC, align 8
+>   store ptr %201, ptr %MEMORY, align 8
+>   br i1 %cmp.0, label %204, label %211
+> 
+> 204:                                              ; preds = %228
+>   %205 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %205, ptr %PC, align 8
+>   %206 = add i64 %205, 4
+>   store i64 %206, ptr %NEXT_PC, align 8
+>   %207 = load i64, ptr %RBP, align 8
+>   %208 = sub i64 %207, 72
+>   %209 = load ptr, ptr %MEMORY, align 8
+>   %210 = call i64 @__remill_read_memory_64(ptr noundef %209, i64 noundef %208) #3
+>   store i64 %210, ptr %RAX, align 8
+>   store ptr %209, ptr %MEMORY, align 8
+>   br label %218
+> 
+> 211:                                              ; preds = %228
+>   %212 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %212, ptr %PC, align 8
+>   %213 = add i64 %212, 4
+>   store i64 %213, ptr %NEXT_PC, align 8
+>   %214 = load i64, ptr %RBP, align 8
+>   %215 = sub i64 %214, 56
+>   %216 = load ptr, ptr %MEMORY, align 8
+>   %217 = call i64 @__remill_read_memory_64(ptr noundef %216, i64 noundef %215) #3
+>   store i64 %217, ptr %RAX, align 8
+>   store ptr %216, ptr %MEMORY, align 8
+>   br label %389
+415a426
+> 218:                                              ; preds = %204
+418c429
+<   %220 = add i64 %219, 2
+---
+>   %220 = add i64 %219, 3
+420,436c431,447
+<   %221 = load i64, ptr %NEXT_PC, align 8
+<   %222 = sub i64 %221, 38
+<   %223 = load i64, ptr %NEXT_PC, align 8
+<   %224 = load ptr, ptr %MEMORY, align 8
+<   %225 = call zeroext i1 @__remill_compare_sle(i1 noundef zeroext %cmp.0) #4
+<   %226 = select i1 %cmp.0, i64 %222, i64 %223
+<   store i64 %226, ptr %NEXT_PC, align 8
+<   store ptr %224, ptr %MEMORY, align 8
+<   br i1 %cmp.0, label %227, label %234
+< 
+< 227:                                              ; preds = %251
+<   %228 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %228, ptr %PC, align 8
+<   %229 = add i64 %228, 4
+<   store i64 %229, ptr %NEXT_PC, align 8
+<   %230 = load i64, ptr %RBP, align 8
+<   %231 = sub i64 %230, 72
+---
+>   %221 = load i64, ptr %RBP, align 8
+>   %222 = sub i64 %221, 80
+>   %223 = load ptr, ptr %MEMORY, align 8
+>   %224 = call i32 @__remill_read_memory_32(ptr noundef %223, i64 noundef %222) #3
+>   %225 = zext i32 %224 to i64
+>   store i64 %225, ptr %RDX, align 8
+>   store ptr %223, ptr %MEMORY, align 8
+>   br label %226
+> 
+> 226:                                              ; preds = %218
+>   %227 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %227, ptr %PC, align 8
+>   %228 = add i64 %227, 2
+>   store i64 %228, ptr %NEXT_PC, align 8
+>   %229 = load i64, ptr %RAX, align 8
+>   %230 = load i32, ptr %EDX, align 4
+>   %231 = zext i32 %230 to i64
+438,441c449,451
+<   %233 = call i64 @__remill_read_memory_64(ptr noundef %232, i64 noundef %231) #3
+<   store i64 %233, ptr %RAX, align 8
+<   store ptr %232, ptr %MEMORY, align 8
+<   br label %241
+---
+>   %233 = call ptr @__remill_write_memory_32(ptr noundef %232, i64 noundef %229, i32 noundef %230) #3
+>   store ptr %233, ptr %MEMORY, align 8
+>   br label %234
+443c453
+< 234:                                              ; preds = %251
+---
+> 234:                                              ; preds = %226
+449c459
+<   %238 = sub i64 %237, 56
+---
+>   %238 = sub i64 %237, 64
+454c464
+<   br label %412
+---
+>   br label %241
+456c466
+< 241:                                              ; preds = %227
+---
+> 241:                                              ; preds = %234
+462c472
+<   %245 = sub i64 %244, 80
+---
+>   %245 = sub i64 %244, 76
+486c496
+<   %259 = add i64 %258, 4
+---
+>   %259 = add i64 %258, 5
+489,763c499,770
+<   %261 = sub i64 %260, 64
+<   %262 = load ptr, ptr %MEMORY, align 8
+<   %263 = call i64 @__remill_read_memory_64(ptr noundef %262, i64 noundef %261) #3
+<   store i64 %263, ptr %RAX, align 8
+<   store ptr %262, ptr %MEMORY, align 8
+<   br label %264
+< 
+< 264:                                              ; preds = %257
+<   %265 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %265, ptr %PC, align 8
+<   %266 = add i64 %265, 3
+<   store i64 %266, ptr %NEXT_PC, align 8
+<   %267 = load i64, ptr %RBP, align 8
+<   %268 = sub i64 %267, 76
+<   %269 = load ptr, ptr %MEMORY, align 8
+<   %270 = call i32 @__remill_read_memory_32(ptr noundef %269, i64 noundef %268) #3
+<   %271 = zext i32 %270 to i64
+<   store i64 %271, ptr %RDX, align 8
+<   store ptr %269, ptr %MEMORY, align 8
+<   br label %272
+< 
+< 272:                                              ; preds = %264
+<   %273 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %273, ptr %PC, align 8
+<   %274 = add i64 %273, 2
+<   store i64 %274, ptr %NEXT_PC, align 8
+<   %275 = load i64, ptr %RAX, align 8
+<   %276 = load i32, ptr %EDX, align 4
+<   %277 = zext i32 %276 to i64
+<   %278 = load ptr, ptr %MEMORY, align 8
+<   %279 = call ptr @__remill_write_memory_32(ptr noundef %278, i64 noundef %275, i32 noundef %276) #3
+<   store ptr %279, ptr %MEMORY, align 8
+<   br label %280
+< 
+< 280:                                              ; preds = %272
+<   %281 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %281, ptr %PC, align 8
+<   %282 = add i64 %281, 5
+<   store i64 %282, ptr %NEXT_PC, align 8
+<   %283 = load i64, ptr %RBP, align 8
+<   %284 = sub i64 %283, 72
+<   %285 = load i64, ptr %RBP, align 8
+<   %286 = sub i64 %285, 72
+<   %287 = load ptr, ptr %MEMORY, align 8
+<   %288 = call i64 @__remill_read_memory_64(ptr noundef %287, i64 noundef %286) #3
+<   %289 = add i64 %288, 4
+<   %290 = call ptr @__remill_write_memory_64(ptr noundef %287, i64 noundef %284, i64 noundef %289) #3
+<   %291 = icmp ult i64 %289, %288
+<   %292 = icmp ult i64 %289, 4
+<   %293 = or i1 %291, %292
+<   %294 = call zeroext i1 (i1, ...) @__remill_flag_computation_carry(i1 noundef zeroext %293, i64 noundef %288, i64 noundef 4, i64 noundef %289) #3
+<   %295 = zext i1 %294 to i8
+<   %296 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 1
+<   store i8 %295, ptr %296, align 1
+<   %297 = trunc i64 %289 to i8
+<   %298 = call i8 @llvm.ctpop.i8(i8 %297)
+<   %299 = and i8 %298, 1
+<   %300 = xor i8 %299, 1
+<   %301 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 3
+<   store i8 %300, ptr %301, align 1
+<   %302 = xor i64 %289, %288
+<   %303 = xor i64 %302, 4
+<   %304 = trunc i64 %303 to i8
+<   %305 = lshr i8 %304, 4
+<   %306 = and i8 %305, 1
+<   %307 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 5
+<   store i8 %306, ptr %307, align 1
+<   %308 = icmp eq i64 %289, 0
+<   %309 = call zeroext i1 (i1, ...) @__remill_flag_computation_zero(i1 noundef zeroext %308, i64 noundef %288, i64 noundef 4, i64 noundef %289) #3
+<   %310 = zext i1 %309 to i8
+<   %311 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 7
+<   store i8 %310, ptr %311, align 1
+<   %312 = icmp slt i64 %289, 0
+<   %313 = call zeroext i1 (i1, ...) @__remill_flag_computation_sign(i1 noundef zeroext %312, i64 noundef %288, i64 noundef 4, i64 noundef %289) #3
+<   %314 = zext i1 %313 to i8
+<   %315 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 9
+<   store i8 %314, ptr %315, align 1
+<   %316 = lshr i64 %302, 63
+<   %317 = xor i64 %289, 4
+<   %318 = lshr i64 %317, 63
+<   %319 = add nuw nsw i64 %316, %318
+<   %320 = icmp eq i64 %319, 2
+<   %321 = call zeroext i1 (i1, ...) @__remill_flag_computation_overflow(i1 noundef zeroext %320, i64 noundef %288, i64 noundef 4, i64 noundef %289) #3
+<   %322 = zext i1 %321 to i8
+<   %323 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 13
+<   store i8 %322, ptr %323, align 1
+<   store ptr %290, ptr %MEMORY, align 8
+<   br label %324
+< 
+< 324:                                              ; preds = %280
+<   %325 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %325, ptr %PC, align 8
+<   %326 = add i64 %325, 5
+<   store i64 %326, ptr %NEXT_PC, align 8
+<   %327 = load i64, ptr %RBP, align 8
+<   %328 = sub i64 %327, 64
+<   %329 = load i64, ptr %RBP, align 8
+<   %330 = sub i64 %329, 64
+<   %331 = load ptr, ptr %MEMORY, align 8
+<   %332 = call i64 @__remill_read_memory_64(ptr noundef %331, i64 noundef %330) #3
+<   %333 = add i64 %332, 4
+<   %334 = call ptr @__remill_write_memory_64(ptr noundef %331, i64 noundef %328, i64 noundef %333) #3
+<   %335 = icmp ult i64 %333, %332
+<   %336 = icmp ult i64 %333, 4
+<   %337 = or i1 %335, %336
+<   %338 = call zeroext i1 (i1, ...) @__remill_flag_computation_carry(i1 noundef zeroext %337, i64 noundef %332, i64 noundef 4, i64 noundef %333) #3
+<   %339 = zext i1 %338 to i8
+<   %340 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 1
+<   store i8 %339, ptr %340, align 1
+<   %341 = trunc i64 %333 to i8
+<   %342 = call i8 @llvm.ctpop.i8(i8 %341)
+<   %343 = and i8 %342, 1
+<   %344 = xor i8 %343, 1
+<   %345 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 3
+<   store i8 %344, ptr %345, align 1
+<   %346 = xor i64 %333, %332
+<   %347 = xor i64 %346, 4
+<   %348 = trunc i64 %347 to i8
+<   %349 = lshr i8 %348, 4
+<   %350 = and i8 %349, 1
+<   %351 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 5
+<   store i8 %350, ptr %351, align 1
+<   %352 = icmp eq i64 %333, 0
+<   %353 = call zeroext i1 (i1, ...) @__remill_flag_computation_zero(i1 noundef zeroext %352, i64 noundef %332, i64 noundef 4, i64 noundef %333) #3
+<   %354 = zext i1 %353 to i8
+<   %355 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 7
+<   store i8 %354, ptr %355, align 1
+<   %356 = icmp slt i64 %333, 0
+<   %357 = call zeroext i1 (i1, ...) @__remill_flag_computation_sign(i1 noundef zeroext %356, i64 noundef %332, i64 noundef 4, i64 noundef %333) #3
+<   %358 = zext i1 %357 to i8
+<   %359 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 9
+<   store i8 %358, ptr %359, align 1
+<   %360 = lshr i64 %346, 63
+<   %361 = xor i64 %333, 4
+<   %362 = lshr i64 %361, 63
+<   %363 = add nuw nsw i64 %360, %362
+<   %364 = icmp eq i64 %363, 2
+<   %365 = call zeroext i1 (i1, ...) @__remill_flag_computation_overflow(i1 noundef zeroext %364, i64 noundef %332, i64 noundef 4, i64 noundef %333) #3
+<   %366 = zext i1 %365 to i8
+<   %367 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 13
+<   store i8 %366, ptr %367, align 1
+<   store ptr %334, ptr %MEMORY, align 8
+<   br label %368
+< 
+< 368:                                              ; preds = %324
+<   %369 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %369, ptr %PC, align 8
+<   %370 = add i64 %369, 4
+<   store i64 %370, ptr %NEXT_PC, align 8
+<   %371 = load i64, ptr %RBP, align 8
+<   %372 = sub i64 %371, 84
+<   %373 = load i64, ptr %RBP, align 8
+<   %374 = sub i64 %373, 84
+<   %375 = load ptr, ptr %MEMORY, align 8
+<   %376 = call i32 @__remill_read_memory_32(ptr noundef %375, i64 noundef %374) #3
+<   %377 = add i32 %376, 1
+<   %378 = call ptr @__remill_write_memory_32(ptr noundef %375, i64 noundef %372, i32 noundef %377) #3
+<   %379 = icmp ult i32 %377, %376
+<   %380 = icmp ult i32 %377, 1
+<   %381 = or i1 %379, %380
+<   %382 = call zeroext i1 (i1, ...) @__remill_flag_computation_carry(i1 noundef zeroext %381, i32 noundef %376, i32 noundef 1, i32 noundef %377) #3
+<   %383 = zext i1 %382 to i8
+<   %384 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 1
+<   store i8 %383, ptr %384, align 1
+<   %385 = trunc i32 %377 to i8
+<   %386 = call i8 @llvm.ctpop.i8(i8 %385)
+<   %387 = and i8 %386, 1
+<   %388 = xor i8 %387, 1
+<   %389 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 3
+<   store i8 %388, ptr %389, align 1
+<   %390 = xor i32 %377, %376
+<   %391 = xor i32 %390, 1
+<   %392 = trunc i32 %391 to i8
+<   %393 = lshr i8 %392, 4
+<   %394 = and i8 %393, 1
+<   %395 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 5
+<   store i8 %394, ptr %395, align 1
+<   %396 = icmp eq i32 %377, 0
+<   %397 = call zeroext i1 (i1, ...) @__remill_flag_computation_zero(i1 noundef zeroext %396, i32 noundef %376, i32 noundef 1, i32 noundef %377) #3
+<   %398 = zext i1 %397 to i8
+<   %399 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 7
+<   store i8 %398, ptr %399, align 1
+<   %400 = icmp slt i32 %377, 0
+<   %401 = call zeroext i1 (i1, ...) @__remill_flag_computation_sign(i1 noundef zeroext %400, i32 noundef %376, i32 noundef 1, i32 noundef %377) #3
+<   %402 = zext i1 %401 to i8
+<   %403 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 9
+<   store i8 %402, ptr %403, align 1
+<   %404 = lshr i32 %390, 31
+<   %405 = xor i32 %377, 1
+<   %406 = lshr i32 %405, 31
+<   %407 = add nuw nsw i32 %404, %406
+<   %408 = icmp eq i32 %407, 2
+<   %409 = call zeroext i1 (i1, ...) @__remill_flag_computation_overflow(i1 noundef zeroext %408, i32 noundef %376, i32 noundef 1, i32 noundef %377) #3
+<   %410 = zext i1 %409 to i8
+<   %411 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 13
+<   store i8 %410, ptr %411, align 1
+<   store ptr %378, ptr %MEMORY, align 8
+<   br label %212
+< 
+< 412:                                              ; preds = %234
+<   %413 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %413, ptr %PC, align 8
+<   %414 = add i64 %413, 2
+<   store i64 %414, ptr %NEXT_PC, align 8
+<   %415 = load i64, ptr %RAX, align 8
+<   %416 = load ptr, ptr %MEMORY, align 8
+<   %417 = call i32 @__remill_read_memory_32(ptr noundef %416, i64 noundef %415) #3
+<   %418 = zext i32 %417 to i64
+<   store i64 %418, ptr %RAX, align 8
+<   store ptr %416, ptr %MEMORY, align 8
+<   br label %419
+< 
+< 419:                                              ; preds = %412
+<   %420 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %420, ptr %PC, align 8
+<   %421 = add i64 %420, 4
+<   store i64 %421, ptr %NEXT_PC, align 8
+<   %422 = load i64, ptr %RBP, align 8
+<   %423 = sub i64 %422, 8
+<   %424 = load ptr, ptr %MEMORY, align 8
+<   %425 = call i64 @__remill_read_memory_64(ptr noundef %424, i64 noundef %423) #3
+<   store i64 %425, ptr %RDX, align 8
+<   store ptr %424, ptr %MEMORY, align 8
+<   br label %426
+< 
+< 426:                                              ; preds = %419
+<   %427 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %427, ptr %PC, align 8
+<   %428 = add i64 %427, 9
+<   store i64 %428, ptr %NEXT_PC, align 8
+<   %429 = load i64, ptr %RDX, align 8
+<   %430 = load i64, ptr %FSBASE, align 8
+<   %431 = add i64 40, %430
+<   %432 = load ptr, ptr %MEMORY, align 8
+<   %433 = call i64 @__remill_read_memory_64(ptr noundef %432, i64 noundef %431) #3
+<   %434 = sub i64 %429, %433
+<   store i64 %434, ptr %RDX, align 8
+<   %cmp.1 = icmp eq i64 %434, 0
+<   store ptr %432, ptr %MEMORY, align 8
+< 
+<   %435 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %435, ptr %PC, align 8
+<   %436 = add i64 %435, 2
+<   store i64 %436, ptr %NEXT_PC, align 8
+<   %437 = load i64, ptr %NEXT_PC, align 8
+<   %438 = add i64 %437, 5
+<   %439 = load i64, ptr %NEXT_PC, align 8
+<   %440 = load ptr, ptr %MEMORY, align 8
+<   %441 = call zeroext i1 @__remill_compare_eq(i1 noundef zeroext %cmp.1) #4
+<   %442 = select i1 %cmp.1, i64 %438, i64 %439
+<   store i64 %442, ptr %NEXT_PC, align 8
+<   store ptr %440, ptr %MEMORY, align 8
+<   br i1 %cmp.1, label %443, label %452
+< 
+< 443:                                              ; preds = %452, %466
+<   %444 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %444, ptr %PC, align 8
+<   %445 = add i64 %444, 1
+<   store i64 %445, ptr %NEXT_PC, align 8
+<   %446 = load ptr, ptr %MEMORY, align 8
+<   %447 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 15
+<   %448 = load i64, ptr %447, align 8
+<   %449 = call i64 @__remill_read_memory_64(ptr noundef %446, i64 noundef %448) #3
+<   store i64 %449, ptr %447, align 8
+<   %450 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 13
+<   %451 = add i64 %448, 8
+<   store i64 %451, ptr %450, align 8
+<   store ptr %446, ptr %MEMORY, align 8
+<   br label %468
+< 
+< 452:                                              ; preds = %466
+<   %453 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %453, ptr %PC, align 8
+<   %454 = add i64 %453, 5
+<   store i64 %454, ptr %NEXT_PC, align 8
+---
+>   %261 = sub i64 %260, 72
+>   %262 = load i64, ptr %RBP, align 8
+>   %263 = sub i64 %262, 72
+>   %264 = load ptr, ptr %MEMORY, align 8
+>   %265 = call i64 @__remill_read_memory_64(ptr noundef %264, i64 noundef %263) #3
+>   %266 = add i64 %265, 4
+>   %267 = call ptr @__remill_write_memory_64(ptr noundef %264, i64 noundef %261, i64 noundef %266) #3
+>   %268 = icmp ult i64 %266, %265
+>   %269 = icmp ult i64 %266, 4
+>   %270 = or i1 %268, %269
+>   %271 = call zeroext i1 (i1, ...) @__remill_flag_computation_carry(i1 noundef zeroext %270, i64 noundef %265, i64 noundef 4, i64 noundef %266) #3
+>   %272 = zext i1 %271 to i8
+>   %273 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 1
+>   store i8 %272, ptr %273, align 1
+>   %274 = trunc i64 %266 to i8
+>   %275 = call i8 @llvm.ctpop.i8(i8 %274)
+>   %276 = and i8 %275, 1
+>   %277 = xor i8 %276, 1
+>   %278 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 3
+>   store i8 %277, ptr %278, align 1
+>   %279 = xor i64 %266, %265
+>   %280 = xor i64 %279, 4
+>   %281 = trunc i64 %280 to i8
+>   %282 = lshr i8 %281, 4
+>   %283 = and i8 %282, 1
+>   %284 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 5
+>   store i8 %283, ptr %284, align 1
+>   %285 = icmp eq i64 %266, 0
+>   %286 = call zeroext i1 (i1, ...) @__remill_flag_computation_zero(i1 noundef zeroext %285, i64 noundef %265, i64 noundef 4, i64 noundef %266) #3
+>   %287 = zext i1 %286 to i8
+>   %288 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 7
+>   store i8 %287, ptr %288, align 1
+>   %289 = icmp slt i64 %266, 0
+>   %290 = call zeroext i1 (i1, ...) @__remill_flag_computation_sign(i1 noundef zeroext %289, i64 noundef %265, i64 noundef 4, i64 noundef %266) #3
+>   %291 = zext i1 %290 to i8
+>   %292 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 9
+>   store i8 %291, ptr %292, align 1
+>   %293 = lshr i64 %279, 63
+>   %294 = xor i64 %266, 4
+>   %295 = lshr i64 %294, 63
+>   %296 = add nuw nsw i64 %293, %295
+>   %297 = icmp eq i64 %296, 2
+>   %298 = call zeroext i1 (i1, ...) @__remill_flag_computation_overflow(i1 noundef zeroext %297, i64 noundef %265, i64 noundef 4, i64 noundef %266) #3
+>   %299 = zext i1 %298 to i8
+>   %300 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 13
+>   store i8 %299, ptr %300, align 1
+>   store ptr %267, ptr %MEMORY, align 8
+>   br label %301
+> 
+> 301:                                              ; preds = %257
+>   %302 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %302, ptr %PC, align 8
+>   %303 = add i64 %302, 5
+>   store i64 %303, ptr %NEXT_PC, align 8
+>   %304 = load i64, ptr %RBP, align 8
+>   %305 = sub i64 %304, 64
+>   %306 = load i64, ptr %RBP, align 8
+>   %307 = sub i64 %306, 64
+>   %308 = load ptr, ptr %MEMORY, align 8
+>   %309 = call i64 @__remill_read_memory_64(ptr noundef %308, i64 noundef %307) #3
+>   %310 = add i64 %309, 4
+>   %311 = call ptr @__remill_write_memory_64(ptr noundef %308, i64 noundef %305, i64 noundef %310) #3
+>   %312 = icmp ult i64 %310, %309
+>   %313 = icmp ult i64 %310, 4
+>   %314 = or i1 %312, %313
+>   %315 = call zeroext i1 (i1, ...) @__remill_flag_computation_carry(i1 noundef zeroext %314, i64 noundef %309, i64 noundef 4, i64 noundef %310) #3
+>   %316 = zext i1 %315 to i8
+>   %317 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 1
+>   store i8 %316, ptr %317, align 1
+>   %318 = trunc i64 %310 to i8
+>   %319 = call i8 @llvm.ctpop.i8(i8 %318)
+>   %320 = and i8 %319, 1
+>   %321 = xor i8 %320, 1
+>   %322 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 3
+>   store i8 %321, ptr %322, align 1
+>   %323 = xor i64 %310, %309
+>   %324 = xor i64 %323, 4
+>   %325 = trunc i64 %324 to i8
+>   %326 = lshr i8 %325, 4
+>   %327 = and i8 %326, 1
+>   %328 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 5
+>   store i8 %327, ptr %328, align 1
+>   %329 = icmp eq i64 %310, 0
+>   %330 = call zeroext i1 (i1, ...) @__remill_flag_computation_zero(i1 noundef zeroext %329, i64 noundef %309, i64 noundef 4, i64 noundef %310) #3
+>   %331 = zext i1 %330 to i8
+>   %332 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 7
+>   store i8 %331, ptr %332, align 1
+>   %333 = icmp slt i64 %310, 0
+>   %334 = call zeroext i1 (i1, ...) @__remill_flag_computation_sign(i1 noundef zeroext %333, i64 noundef %309, i64 noundef 4, i64 noundef %310) #3
+>   %335 = zext i1 %334 to i8
+>   %336 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 9
+>   store i8 %335, ptr %336, align 1
+>   %337 = lshr i64 %323, 63
+>   %338 = xor i64 %310, 4
+>   %339 = lshr i64 %338, 63
+>   %340 = add nuw nsw i64 %337, %339
+>   %341 = icmp eq i64 %340, 2
+>   %342 = call zeroext i1 (i1, ...) @__remill_flag_computation_overflow(i1 noundef zeroext %341, i64 noundef %309, i64 noundef 4, i64 noundef %310) #3
+>   %343 = zext i1 %342 to i8
+>   %344 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 13
+>   store i8 %343, ptr %344, align 1
+>   store ptr %311, ptr %MEMORY, align 8
+>   br label %345
+> 
+> 345:                                              ; preds = %301
+>   %346 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %346, ptr %PC, align 8
+>   %347 = add i64 %346, 4
+>   store i64 %347, ptr %NEXT_PC, align 8
+>   %348 = load i64, ptr %RBP, align 8
+>   %349 = sub i64 %348, 84
+>   %350 = load i64, ptr %RBP, align 8
+>   %351 = sub i64 %350, 84
+>   %352 = load ptr, ptr %MEMORY, align 8
+>   %353 = call i32 @__remill_read_memory_32(ptr noundef %352, i64 noundef %351) #3
+>   %354 = add i32 %353, 1
+>   %355 = call ptr @__remill_write_memory_32(ptr noundef %352, i64 noundef %349, i32 noundef %354) #3
+>   %356 = icmp ult i32 %354, %353
+>   %357 = icmp ult i32 %354, 1
+>   %358 = or i1 %356, %357
+>   %359 = call zeroext i1 (i1, ...) @__remill_flag_computation_carry(i1 noundef zeroext %358, i32 noundef %353, i32 noundef 1, i32 noundef %354) #3
+>   %360 = zext i1 %359 to i8
+>   %361 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 1
+>   store i8 %360, ptr %361, align 1
+>   %362 = trunc i32 %354 to i8
+>   %363 = call i8 @llvm.ctpop.i8(i8 %362)
+>   %364 = and i8 %363, 1
+>   %365 = xor i8 %364, 1
+>   %366 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 3
+>   store i8 %365, ptr %366, align 1
+>   %367 = xor i32 %354, %353
+>   %368 = xor i32 %367, 1
+>   %369 = trunc i32 %368 to i8
+>   %370 = lshr i8 %369, 4
+>   %371 = and i8 %370, 1
+>   %372 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 5
+>   store i8 %371, ptr %372, align 1
+>   %373 = icmp eq i32 %354, 0
+>   %374 = call zeroext i1 (i1, ...) @__remill_flag_computation_zero(i1 noundef zeroext %373, i32 noundef %353, i32 noundef 1, i32 noundef %354) #3
+>   %375 = zext i1 %374 to i8
+>   %376 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 7
+>   store i8 %375, ptr %376, align 1
+>   %377 = icmp slt i32 %354, 0
+>   %378 = call zeroext i1 (i1, ...) @__remill_flag_computation_sign(i1 noundef zeroext %377, i32 noundef %353, i32 noundef 1, i32 noundef %354) #3
+>   %379 = zext i1 %378 to i8
+>   %380 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 9
+>   store i8 %379, ptr %380, align 1
+>   %381 = lshr i32 %367, 31
+>   %382 = xor i32 %354, 1
+>   %383 = lshr i32 %382, 31
+>   %384 = add nuw nsw i32 %381, %383
+>   %385 = icmp eq i32 %384, 2
+>   %386 = call zeroext i1 (i1, ...) @__remill_flag_computation_overflow(i1 noundef zeroext %385, i32 noundef %353, i32 noundef 1, i32 noundef %354) #3
+>   %387 = zext i1 %386 to i8
+>   %388 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 2, i32 13
+>   store i8 %387, ptr %388, align 1
+>   store ptr %355, ptr %MEMORY, align 8
+>   br label %189
+> 
+> 389:                                              ; preds = %211
+>   %390 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %390, ptr %PC, align 8
+>   %391 = add i64 %390, 2
+>   store i64 %391, ptr %NEXT_PC, align 8
+>   %392 = load i64, ptr %RAX, align 8
+>   %393 = load ptr, ptr %MEMORY, align 8
+>   %394 = call i32 @__remill_read_memory_32(ptr noundef %393, i64 noundef %392) #3
+>   %395 = zext i32 %394 to i64
+>   store i64 %395, ptr %RAX, align 8
+>   store ptr %393, ptr %MEMORY, align 8
+>   br label %396
+> 
+> 396:                                              ; preds = %389
+>   %397 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %397, ptr %PC, align 8
+>   %398 = add i64 %397, 4
+>   store i64 %398, ptr %NEXT_PC, align 8
+>   %399 = load i64, ptr %RBP, align 8
+>   %400 = sub i64 %399, 8
+>   %401 = load ptr, ptr %MEMORY, align 8
+>   %402 = call i64 @__remill_read_memory_64(ptr noundef %401, i64 noundef %400) #3
+>   store i64 %402, ptr %RDX, align 8
+>   store ptr %401, ptr %MEMORY, align 8
+>   br label %403
+> 
+> 403:                                              ; preds = %396
+>   %404 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %404, ptr %PC, align 8
+>   %405 = add i64 %404, 9
+>   store i64 %405, ptr %NEXT_PC, align 8
+>   %406 = load i64, ptr %RDX, align 8
+>   %407 = load i64, ptr %FSBASE, align 8
+>   %408 = add i64 40, %407
+>   %409 = load ptr, ptr %MEMORY, align 8
+>   %410 = call i64 @__remill_read_memory_64(ptr noundef %409, i64 noundef %408) #3
+>   %411 = sub i64 %406, %410
+>   store i64 %411, ptr %RDX, align 8
+>   %cmp.1 = icmp eq i64 %411, 0
+>   store ptr %409, ptr %MEMORY, align 8
+> 
+>   %412 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %412, ptr %PC, align 8
+>   %413 = add i64 %412, 2
+>   store i64 %413, ptr %NEXT_PC, align 8
+>   %414 = load i64, ptr %NEXT_PC, align 8
+>   %415 = add i64 %414, 5
+>   %416 = load i64, ptr %NEXT_PC, align 8
+>   %417 = load ptr, ptr %MEMORY, align 8
+>   %418 = call zeroext i1 @__remill_compare_eq(i1 noundef zeroext %cmp.1) #4
+>   %419 = select i1 %cmp.1, i64 %415, i64 %416
+>   store i64 %419, ptr %NEXT_PC, align 8
+>   store ptr %417, ptr %MEMORY, align 8
+>   br i1 %cmp.1, label %420, label %429
+> 
+> 420:                                              ; preds = %429, %443
+>   %421 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %421, ptr %PC, align 8
+>   %422 = add i64 %421, 1
+>   store i64 %422, ptr %NEXT_PC, align 8
+>   %423 = load ptr, ptr %MEMORY, align 8
+>   %424 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 15
+>   %425 = load i64, ptr %424, align 8
+>   %426 = call i64 @__remill_read_memory_64(ptr noundef %423, i64 noundef %425) #3
+>   store i64 %426, ptr %424, align 8
+>   %427 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 13
+>   %428 = add i64 %425, 8
+>   store i64 %428, ptr %427, align 8
+>   store ptr %423, ptr %MEMORY, align 8
+>   br label %445
+> 
+> 429:                                              ; preds = %443
+>   %430 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %430, ptr %PC, align 8
+>   %431 = add i64 %430, 5
+>   store i64 %431, ptr %NEXT_PC, align 8
+>   %432 = load i64, ptr %NEXT_PC, align 8
+>   %433 = sub i64 %432, 391
+>   %434 = load i64, ptr %NEXT_PC, align 8
+>   %435 = load ptr, ptr %MEMORY, align 8
+>   %436 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 13
+>   %437 = load i64, ptr %436, align 8
+>   %438 = add i64 %437, -8
+>   %439 = call ptr @__remill_write_memory_64(ptr noundef %435, i64 noundef %438, i64 noundef %434) #3
+>   store i64 %438, ptr %436, align 8
+>   %440 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 33
+>   store i64 %433, ptr %440, align 8
+>   store i64 %433, ptr %NEXT_PC, align 8
+>   store i64 %434, ptr %RETURN_PC, align 8
+>   store ptr %439, ptr %MEMORY, align 8
+>   %441 = load ptr, ptr %MEMORY, align 8
+>   %442 = load i64, ptr %PC, align 8
+>   %443 = call ptr @EXTERNAL.__stack_chk_fail(ptr %state, i64 %442, ptr %441)
+>   %444 = load i64, ptr %RETURN_PC, align 8
+>   store i64 %444, ptr %NEXT_PC, align 8
+>   br label %420
+> 
+> 445:                                              ; preds = %420
+>   %446 = load i64, ptr %NEXT_PC, align 8
+>   store i64 %446, ptr %PC, align 8
+>   %447 = add i64 %446, 1
+>   store i64 %447, ptr %NEXT_PC, align 8
+>   %448 = load ptr, ptr %MEMORY, align 8
+>   %449 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 13
+>   %450 = load i64, ptr %449, align 8
+>   %451 = call i64 @__remill_read_memory_64(ptr noundef %448, i64 noundef %450) #3
+>   %452 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 33
+>   store i64 %451, ptr %452, align 8
+>   store i64 %451, ptr %NEXT_PC, align 8
+>   %453 = load i64, ptr %449, align 8
+>   %454 = add i64 %453, 8
+>   store i64 %454, ptr %449, align 8
+>   store ptr %448, ptr %MEMORY, align 8
+765,806c772,776
+<   %456 = sub i64 %455, 391
+<   %457 = load i64, ptr %NEXT_PC, align 8
+<   %458 = load ptr, ptr %MEMORY, align 8
+<   %459 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 13
+<   %460 = load i64, ptr %459, align 8
+<   %461 = add i64 %460, -8
+<   %462 = call ptr @__remill_write_memory_64(ptr noundef %458, i64 noundef %461, i64 noundef %457) #3
+<   store i64 %461, ptr %459, align 8
+<   %463 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 33
+<   store i64 %456, ptr %463, align 8
+<   store i64 %456, ptr %NEXT_PC, align 8
+<   store i64 %457, ptr %RETURN_PC, align 8
+<   store ptr %462, ptr %MEMORY, align 8
+<   %464 = load ptr, ptr %MEMORY, align 8
+<   %465 = load i64, ptr %PC, align 8
+<   %466 = call ptr @EXTERNAL.__stack_chk_fail(ptr %state, i64 %465, ptr %464)
+<   %467 = load i64, ptr %RETURN_PC, align 8
+<   store i64 %467, ptr %NEXT_PC, align 8
+<   br label %443
+< 
+< 468:                                              ; preds = %443
+<   %469 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %469, ptr %PC, align 8
+<   %470 = add i64 %469, 1
+<   store i64 %470, ptr %NEXT_PC, align 8
+<   %471 = load ptr, ptr %MEMORY, align 8
+<   %472 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 13
+<   %473 = load i64, ptr %472, align 8
+<   %474 = call i64 @__remill_read_memory_64(ptr noundef %471, i64 noundef %473) #3
+<   %475 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 33
+<   store i64 %474, ptr %475, align 8
+<   store i64 %474, ptr %NEXT_PC, align 8
+<   %476 = load i64, ptr %472, align 8
+<   %477 = add i64 %476, 8
+<   store i64 %477, ptr %472, align 8
+<   store ptr %471, ptr %MEMORY, align 8
+<   %478 = load i64, ptr %NEXT_PC, align 8
+<   store i64 %478, ptr %PC, align 8
+<   %479 = load ptr, ptr %MEMORY, align 8
+<   %480 = load i64, ptr %PC, align 8
+<   %481 = tail call ptr @__remill_function_return(ptr %state, i64 %480, ptr %479)
+<   ret ptr %481
+---
+>   store i64 %455, ptr %PC, align 8
+>   %456 = load ptr, ptr %MEMORY, align 8
+>   %457 = load i64, ptr %PC, align 8
+>   %458 = tail call ptr @__remill_function_return(ptr %state, i64 %457, ptr %456)
+>   ret ptr %458
