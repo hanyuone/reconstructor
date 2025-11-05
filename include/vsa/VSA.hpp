@@ -56,8 +56,8 @@ struct Snapshot {
 class VSA {
   public:
     VSA(SVF::ICFG *_icfg) : icfg(_icfg) {
-        const int N_REGISTERS = 4;
-        std::string REGISTERS[N_REGISTERS] = {"RAX", "RBX", "RCX", "RDX"};
+        const int N_REGISTERS = 7;
+        std::string REGISTERS[N_REGISTERS] = {"RAX", "EAX", "RBX", "RCX", "RDX", "RDI", "RSI"};
 
         this->svfir = SVF::PAG::getPAG();
 
@@ -77,6 +77,7 @@ class VSA {
     void handleGlobalNode();
     void handleMainFunction(const SVF::FunObjVar *);
     void analyse();
+    std::map<SVF::NodeID, std::pair<ValueSet, size_t>> getDataAccesses();
 
     ValueSet getSVFVarSet(SVF::NodeID, Snapshot &);
     std::pair<std::vector<ALoc>, std::vector<ALoc>> getALocsByAccessSize(ValueSet, size_t);
@@ -100,8 +101,10 @@ class VSA {
     void handleFunction(const SVF::ICFGNode *);
     bool handleICFGNode(const SVF::ICFGNode *);
     void handleICFGCycle(const SVF::ICFGCycleWTO *);
+
     void handleRemillRead(SVF::NodeID, SVF::NodeID, size_t);
     void handleRemillWrite(SVF::NodeID, SVF::NodeID, size_t);
+    void handleScanf(SVF::NodeID);
     void handleCallSite(const SVF::CallICFGNode *);
 
     void updateAbsState(const SVF::SVFStmt *);
@@ -147,8 +150,8 @@ class VSA {
     std::map<const SVF::ICFGNode *, Snapshot> preBasicBlock;
     /// State of variables immediately after the end of a basic block
     std::map<const SVF::ICFGNode *, Snapshot> postBasicBlock;
-
-    // TODO: remove once working on proper implementation
-    int readCalls;
-    int writeCalls;
+    /// Data accesses
+    bool isInCycle;
+    bool narrowing;
+    std::map<SVF::NodeID, std::pair<ValueSet, size_t>> dataAccesses;
 };

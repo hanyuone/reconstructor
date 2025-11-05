@@ -18,6 +18,7 @@ struct ValueSet {
     bool operator==(ValueSet &);
     bool operator!=(ValueSet &);
     ValueSet operator+(ValueSet);
+    ValueSet operator<<(int);
 
     bool isTop();
     bool isBottom();

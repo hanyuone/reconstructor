@@ -1,4 +1,4 @@
-949,1275d948
+1037,1363d1036
 < define ptr @LIFTED._start(ptr noalias %state, i64 %program_counter, ptr noalias %memory) {
 <   %RDI = getelementptr inbounds %struct.State, ptr %state, i32 0, i32 0, i32 6, i32 11, i32 0, i32 0
 <   %ECX = getelementptr inbounds %struct.State, ptr %state, i32 0, i32 0, i32 6, i32 5, i32 0, i32 0
@@ -287,7 +287,7 @@
 <   %156 = add i64 %155, 6
 <   store i64 %156, ptr %NEXT_PC, align 8
 <   %157 = load i64, ptr %NEXT_PC, align 8
-<   %158 = add i64 %157, 12115
+<   %158 = add i64 %157, 12051
 <   %159 = load i64, ptr %NEXT_PC, align 8
 <   %160 = load ptr, ptr %MEMORY, align 8
 <   %161 = getelementptr inbounds %struct.X86State, ptr %state, i64 0, i32 6, i32 13

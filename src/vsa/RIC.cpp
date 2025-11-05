@@ -172,8 +172,6 @@ void RIC::meetWith(RIC &rhs) {
 /// @brief Overwrite this RIC with the union (join) of this and another RIC.
 /// @param rhs The RIC to join with.
 void RIC::joinWith(RIC &rhs) {
-    std::cout << "Trying to join " << this->toString() << " and " << rhs.toString() << std::endl;
-
     if (this->isTop() || rhs.isBottom()) {
         return;
     }
@@ -241,8 +239,6 @@ void RIC::joinWith(RIC &rhs) {
 }
 
 void RIC::widenWith(RIC &rhs) {
-    std::cout << "Trying to widen " << this->toString() << " and " << rhs.toString() << std::endl;
-
     if (this->isConstant()) {
         this->stride = rhs.stride;
     }

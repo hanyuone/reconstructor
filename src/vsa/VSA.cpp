@@ -211,6 +211,10 @@ void VSA::analyse() {
     }
 }
 
+std::map<SVF::NodeID, std::pair<ValueSet, size_t>> VSA::getDataAccesses() {
+    return this->dataAccesses;
+}
+
 /// @brief Find the value set of an SVF variable, given a specific snapshot.
 /// This function will also look through *global* variables.
 /// @param id the ID of that variable
@@ -697,7 +701,8 @@ bool VSA::isCmpBranchFeasible(const SVF::CmpStmt *cmpStmt, SVF::s64_t succ,
     // Value of node was retrieved from call function
     if (const SVF::CallICFGNode *callNode =
             SVF::SVFUtil::dyn_cast<SVF::CallICFGNode>(op0Var->getICFGNode())) {
-        size_t size = READ_FNS_TO_SIZES.at(callNode->getCalledFunction()->getName());
+        size_t size =
+            READ_FNS_TO_SIZES.at(callNode->getCalledFunction()->getName());
 
         SVF::NodeID addrId = callNode->getArgument(1)->getId();
         ValueSet addrValueSet = snapshot.getSVFVarSet(addrId);
@@ -705,7 +710,6 @@ bool VSA::isCmpBranchFeasible(const SVF::CmpStmt *cmpStmt, SVF::s64_t succ,
         // TODO: change region when implementing interprocedural VSA
         ALoc aloc{1, addrValueSet.values[1].getConstant(), size};
         snapshot.abstractStore.alocs[aloc].values[0] = lhs;
-        
     }
 
     snapshot.varState = newVarState;
@@ -840,6 +844,7 @@ void VSA::handleFunctionStart(const SVF::ICFGNode *rspNode) {
     auto subStmt = SVF::SVFUtil::dyn_cast<SVF::BinaryOPStmt>(uncastSubStmt);
 
     ValueSet stackSizeSet = this->globalState[subStmt->getOpVarID(1)];
+    std::cout << "Stack size: " << stackSizeSet.getConstant() << std::endl;
 
     // Blocks 1, 2 and 3 are skipped, which contain 8 bytes total
     // Block 3, which handles the offset, has 4 bytes
@@ -928,6 +933,8 @@ void VSA::handleFunction(const SVF::ICFGNode *funEntry) {
  * @return void
  */
 void VSA::handleICFGCycle(const SVF::ICFGCycleWTO *cycle) {
+    this->isInCycle = true;
+
     // Get execution states from in edges
     const SVF::ICFGNode *head = cycle->head()->getICFGNode();
 
@@ -975,6 +982,7 @@ void VSA::handleICFGCycle(const SVF::ICFGCycleWTO *cycle) {
                 if (widened == preAs) {
                     // We've reached a fixed point!
                     increasing = false;
+                    this->narrowing = true;
                     continue;
                 }
             } else {
@@ -984,7 +992,7 @@ void VSA::handleICFGCycle(const SVF::ICFGCycleWTO *cycle) {
                 curAs = narrowed;
 
                 if (narrowed == preAs) {
-                    // We've reached the narrow fixed point
+                    this->narrowing = false;
                     break;
                 }
             }
@@ -1018,6 +1026,8 @@ void VSA::handleICFGCycle(const SVF::ICFGCycleWTO *cycle) {
             preAs = curAs;
         }
     }
+
+    this->isInCycle = false;
 }
 
 /**
@@ -1034,6 +1044,7 @@ void VSA::handleICFGCycle(const SVF::ICFGCycleWTO *cycle) {
  * @return True if it is feasible, false if it is infeasible
  */
 bool VSA::handleICFGNode(const SVF::ICFGNode *node) {
+    std::cout << "Entering node " << node->getId() << std::endl;
     bool isStart = isStartOfBasicBlock(node);
 
     if (isStart) {
@@ -1137,6 +1148,48 @@ void VSA::handleRemillWrite(SVF::NodeID addrId, SVF::NodeID valueId,
     this->blockState.abstractStore = tmp;
 }
 
+void VSA::handleScanf(SVF::NodeID retId) {
+    ValueSet addrVs = this->blockState.getRegisterSet("RSI");
+
+    auto alocs = getALocsByAccessSize(addrVs, 8);
+    auto fullAccesses = alocs.first;
+    auto partialAccesses = alocs.second;
+
+    // Create temporary abstract store
+    AbstractStore tmp = this->blockState.abstractStore;
+
+    // Clear all (full + partial) accesses
+    for (auto aloc : fullAccesses) {
+        tmp.alocs[aloc] = ValueSet();
+    }
+
+    for (auto aloc : partialAccesses) {
+        // Replace partial accesses with TOP
+        tmp.alocs[aloc] = ValueSet();
+        tmp.alocs[aloc].top = true;
+    }
+
+    if (fullAccesses.size() == 1 && partialAccesses.empty()) {
+        // Strong update
+        ALoc access = fullAccesses[0];
+        ValueSet top;
+        top.top = true;
+        tmp.alocs[access] = top;
+    } else {
+        // Weak update
+        for (auto aloc : fullAccesses) {
+            auto alocValueSet = this->blockState.abstractStore.alocs.find(aloc);
+            if (alocValueSet == this->blockState.abstractStore.alocs.end()) {
+                continue;
+            }
+
+            tmp.alocs[aloc] = (*alocValueSet).second;
+        }
+    }
+
+    this->blockState.abstractStore = tmp;
+}
+
 /**
  * @brief Handle a call site in the control flow graph
  *
@@ -1150,20 +1203,41 @@ void VSA::handleCallSite(const SVF::CallICFGNode *callNode) {
     // Get the callee function associated with the call site
     const SVF::FunObjVar *callee = callNode->getCalledFunction();
     std::string fun_name = callee->getName();
+    std::cout << "Calling function with name \"" << fun_name << "\""
+              << std::endl;
 
-    // TODO: implement *actual* read and write
     if (fun_name.rfind("__remill_read_memory", 0) == 0) {
         SVF::NodeID retId = callNode->getRetICFGNode()->getActualRet()->getId();
         SVF::NodeID addrId = callNode->getArgument(1)->getId();
         size_t size = READ_FNS_TO_SIZES.at(fun_name);
 
+        // TODO: refactor to functions that both handle generic read/write
+        // and sets data accesses outside of cycle/on narrow
         handleRemillRead(retId, addrId, size);
+
+        if (!this->isInCycle || this->narrowing) {
+            this->dataAccesses[callNode->getId()] = {
+                this->getSVFVarSet(addrId, this->blockState), size};
+        }
     } else if (fun_name.rfind("__remill_write_memory", 0) == 0) {
         SVF::NodeID addrId = callNode->getArgument(1)->getId();
         SVF::NodeID valueId = callNode->getArgument(2)->getId();
         size_t size = WRITE_FNS_TO_SIZES.at(fun_name);
 
         handleRemillWrite(addrId, valueId, size);
+
+        if (!this->isInCycle || this->narrowing) {
+            this->dataAccesses[callNode->getId()] = {
+                this->getSVFVarSet(addrId, this->blockState), size};
+        }
+    } else if (fun_name == "EXTERNAL.__isoc99_scanf") {
+        SVF::NodeID retId = callNode->getRetICFGNode()->getActualRet()->getId();
+        handleScanf(retId);
+
+        if (!this->isInCycle || this->narrowing) {
+            this->dataAccesses[callNode->getId()] = {
+                this->blockState.getRegisterSet("RSI"), 8};
+        }
     } else if (SVF::SVFUtil::isExtCall(callee)) {
         // `@EXTERNAL.` calls
         updateStateOnExtCall(callNode);
@@ -1290,11 +1364,8 @@ void VSA::updateStateOnRet(const SVF::RetPE *retPE) {
 }
 
 void VSA::updateStateOnCopy(const SVF::CopyStmt *copy) {
-    /*
-    const SVF::ICFGNode *node = copy->getICFGNode();
-    AbstractState &as = getAbsStateFromTrace(node);
-    as[copy->getLHSVarID()] = as[copy->getRHSVarID()];
-    */
+    this->blockState.varState[copy->getLHSVarID()] =
+        this->getSVFVarSet(copy->getRHSVarID(), this->blockState);
 }
 
 /// Find the comparison predicates in "class SVF::BinaryOPStmt:OpCode" under
@@ -1365,9 +1436,7 @@ void VSA::updateStateOnBinary(const SVF::BinaryOPStmt *binary) {
     case SVF::BinaryOPStmt::Sub:
     case SVF::BinaryOPStmt::FSub: {
         // Assumes RHS is always a constant
-        ValueSet vs = this->blockState.getSVFVarSet(left);
-        auto rightVar = binary->getOpVar(1);
-
+        ValueSet vs = this->getSVFVarSet(left, this->blockState);
         int rhsConst =
             this->getSVFVarSet(right, this->blockState).getConstant();
         vs.adjust(-rhsConst);
@@ -1375,6 +1444,17 @@ void VSA::updateStateOnBinary(const SVF::BinaryOPStmt *binary) {
         this->blockState.varState[resID] = vs;
         break;
     }
+    case SVF::BinaryOPStmt::Xor:
+        // The only XORs we care about are ones that set a variable to 0
+        // TODO: patch once we actually implement xor
+        this->blockState.varState[resID] = 0;
+        break;
+    case SVF::BinaryOPStmt::Shl:
+        std::cout << "Shifting left" << std::endl;
+        this->blockState.varState[resID] =
+            this->getSVFVarSet(left, this->blockState)
+            << this->getSVFVarSet(right, this->blockState).getConstant();
+        break;
     }
 }
 
@@ -1569,7 +1649,9 @@ void VSA::updateStateOnStore(const SVF::StoreStmt *store) {
     }
     // Store value to register
     else if (this->blockState.isRegister(lhs->getName())) {
-        ValueSet rhsSet = this->blockState.getSVFVarSet(rhs->getId());
+        ValueSet rhsSet = this->getSVFVarSet(rhs->getId(), this->blockState);
+        std::cout << "Storing value set " << rhsSet.toString()
+                  << " to register " << lhs->getName() << std::endl;
         this->blockState.abstractStore.registers[lhs->getName()] = rhsSet;
     }
 }

@@ -22,19 +22,46 @@ bool ValueSet::operator!=(ValueSet &rhs) {
 }
 
 ValueSet ValueSet::operator+(ValueSet rhs) {
-    if (this->getGlobal().isConstant() && rhs.getGlobal().isConstant()) {
-        return ValueSet(this->getConstant() + rhs.getConstant());
-    } else if (this->getGlobal().isConstant()) {
-        return rhs + (*this);
-    } else if (rhs.getGlobal().isConstant()) {
-        ValueSet vs = (*this);
-        vs.adjust(rhs.getConstant());
+    if (this->values.find(0) != this->values.end() && this->getGlobal().isConstant()) {
+        // Value at memory region 0 is constant
+        ValueSet vs = rhs;
+        vs.adjust(this->getConstant());
         return vs;
+    } else if (this->values.find(0) != this->values.end()) {
+        // Value at memory region 0 is RIC
+        ValueSet vs = rhs;
+
+        for (auto kv = vs.values.begin(); kv != vs.values.end(); kv++) {
+            if (kv->second.isConstant()) {
+                RIC ric = this->values[0];
+                ric.offset = kv->second.getConstant();
+                kv->second = ric;
+            } else {
+                kv->second = TOP;
+            }
+        }
+
+        return vs;
+    } else if (rhs.values.find(0) != rhs.values.end()) {
+        return rhs + (*this);
     } else {
         ValueSet vs;
         vs.top = true;
         return vs;
     }
+}
+
+ValueSet ValueSet::operator<<(int shift) {
+    ValueSet vs = (*this);
+    
+    for (auto it = vs.values.begin(); it != vs.values.end(); it++) {
+        RIC ric = it->second;
+        ric.stride <<= shift;
+        ric.offset <<= shift;
+        it->second = ric;
+    }
+
+    return vs;
 }
 
 bool ValueSet::isTop() {

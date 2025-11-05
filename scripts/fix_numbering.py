@@ -1,11 +1,11 @@
 import re
 
 FUNCTION_NAME = "main"
-UNNUMBERED = 102
-SUBTRACT_BY = 23
+UNNUMBERED = 471
+SUBTRACT_BY = 38
 
 if __name__ == "__main__":
-    with open("../build/vsa_modified.ll") as f:
+    with open("../build/vuln_modified.ll") as f:
         lines = f.readlines()
         in_range = False
 
