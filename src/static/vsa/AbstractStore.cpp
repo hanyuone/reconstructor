@@ -1,4 +1,4 @@
-#include <vsa/AbstractStore.hpp>
+#include <static/vsa/AbstractStore.hpp>
 
 bool ALoc::operator<(const ALoc &rhs) const {
     if (this->region < rhs.region) {

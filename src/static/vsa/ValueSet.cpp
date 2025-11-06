@@ -1,5 +1,5 @@
 #include <limits>
-#include <vsa/ValueSet.hpp>
+#include <static/vsa/ValueSet.hpp>
 
 bool ValueSet::operator==(ValueSet &rhs) {
     for (auto kv : this->values) {

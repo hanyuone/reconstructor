@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <map>
-#include <vsa/RIC.hpp>
+#include <static/vsa/RIC.hpp>
 
 /// @brief A representation of all addresses that an a-loc
 /// could hold. It is represented as a mapping of memory regions

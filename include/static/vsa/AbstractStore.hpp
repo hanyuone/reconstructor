@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include <vsa/ValueSet.hpp>
+#include <static/vsa/ValueSet.hpp>
 
 /// @brief A "quasi-variable" that could contain a range of values.
 struct ALoc {

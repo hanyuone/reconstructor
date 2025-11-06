@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <numeric>
-#include <vsa/RIC.hpp>
+#include <static/vsa/RIC.hpp>
 
 std::string RIC::toString() {
     return std::to_string(this->stride) + " * [" + this->start.to_string() +

@@ -6,7 +6,33 @@
 #include "Util/Options.h"
 #include "WPA/Andersen.h"
 
-#include <vsa/VSA.hpp>
+#include <static/asi/ASI.hpp>
+#include <static/vsa/VSA.hpp>
+
+std::map<ALoc, ASIType *> reconstructTypes(SVF::ICFG *icfg) {
+    // Return types...
+    /// VSA analysis
+    std::vector<ALoc> alocs = {ALoc{1, 12, 4}, ALoc{1, 16, 16}, ALoc{1, 32, 8},
+                               ALoc{1, 40, 8}};
+
+    VSA vsa(icfg);
+    vsa.setALocs(alocs);
+    vsa.analyse();
+
+    auto accesses = vsa.getDataAccesses();
+
+    for (auto kv : accesses) {
+        std::cout << "Data access at node " << kv.first << ": "
+                  << kv.second.first.toString() << ", accessing "
+                  << kv.second.second << " bytes " << std::endl;
+    }
+
+    // ASI analysis
+    ASI asi(accesses, alocs);
+    asi.analyse();
+
+    return asi.getRegionsAndTypes();
+}
 
 int main(int argc, char *argv[]) {
     std::vector<std::string> moduleNameVec;
@@ -35,31 +61,16 @@ int main(int argc, char *argv[]) {
     SVF::ICFG *icfg = pag->getICFG();
     icfg->dump(pag->getModuleIdentifier() + ".icfg");
 
-    /// VSA analysis
-    std::vector<ALoc> alocs = {ALoc{1, 12, 4}, ALoc{1, 16, 16}, ALoc{1, 32, 4},
-                               ALoc{1, 40, 8}};
+    /// Static analysis
+    auto types = reconstructTypes(icfg);
 
-    VSA vsa(icfg);
-    vsa.setALocs(alocs);
-    vsa.analyse();
-
-    auto accesses = vsa.getDataAccesses();
-
-    for (auto kv : accesses) {
-        std::cout << "Data access at node " << kv.first << ": "
-                  << kv.second.first.toString() << ", accessing "
-                  << kv.second.second << " bytes " << std::endl;
+    for (auto kv : types) {
+        ALoc aloc = kv.first;
+        std::cout << aloc.toString() << " has type " << kv.second->toString()
+                  << std::endl;
     }
 
-    /// Value-Flow Graph (VFG)
-    SVF::VFG *vfg = new SVF::VFG(callgraph);
-
-    /// Sparse value-flow graph (SVFG)
-    SVF::SVFGBuilder svfBuilder;
-    SVF::SVFG *svfg = svfBuilder.buildFullSVFG(ander);
-
     // clean up memory
-    delete vfg;
     SVF::AndersenWaveDiff::releaseAndersenWaveDiff();
     SVF::SVFIR::releaseSVFIR();
 

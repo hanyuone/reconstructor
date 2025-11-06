@@ -1,6 +1,6 @@
 #include <WPA/Andersen.h>
 
-#include <vsa/VSA.hpp>
+#include <static/vsa/VSA.hpp>
 
 // according to varieties of cmp insts,
 // maybe var X var, var X const, const X var, const X const

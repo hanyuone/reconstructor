@@ -11,8 +11,8 @@
 #include <Graphs/ICFG.h>
 #include <SVFIR/SVFIR.h>
 #include <Util/GeneralType.h>
-#include <vsa/AbstractStore.hpp>
-#include <vsa/ValueSet.hpp>
+#include <static/vsa/AbstractStore.hpp>
+#include <static/vsa/ValueSet.hpp>
 
 typedef std::map<SVF::NodeID, ValueSet> SVFVarState;
 
@@ -57,12 +57,14 @@ class VSA {
   public:
     VSA(SVF::ICFG *_icfg) : icfg(_icfg) {
         const int N_REGISTERS = 7;
-        std::string REGISTERS[N_REGISTERS] = {"RAX", "EAX", "RBX", "RCX", "RDX", "RDI", "RSI"};
+        std::string REGISTERS[N_REGISTERS] = {"RAX", "EAX", "RBX", "RCX",
+                                              "RDX", "RDI", "RSI"};
 
         this->svfir = SVF::PAG::getPAG();
 
         for (int i = 0; i < N_REGISTERS; i++) {
-            this->blockState.abstractStore.registers.insert({REGISTERS[i], ValueSet()});
+            this->blockState.abstractStore.registers.insert(
+                {REGISTERS[i], ValueSet()});
         }
     }
 
@@ -80,7 +82,8 @@ class VSA {
     std::map<SVF::NodeID, std::pair<ValueSet, size_t>> getDataAccesses();
 
     ValueSet getSVFVarSet(SVF::NodeID, Snapshot &);
-    std::pair<std::vector<ALoc>, std::vector<ALoc>> getALocsByAccessSize(ValueSet, size_t);
+    std::pair<std::vector<ALoc>, std::vector<ALoc>>
+    getALocsByAccessSize(ValueSet, size_t);
 
     std::vector<const SVF::ICFGNode *>
     getNextNodes(const SVF::ICFGNode *) const;
